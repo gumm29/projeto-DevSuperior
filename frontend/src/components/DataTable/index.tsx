@@ -1,4 +1,5 @@
 import axios from 'axios';
+import Paginacao from 'components/Paginacao';
 import { SalePage } from 'model/sale'
 import { useEffect, useState } from 'react'
 import { formatLocalDate } from 'utils/format';
@@ -6,6 +7,7 @@ import { BASE_URL } from 'utils/requests';
 
 const DataTable = () => {
 
+  const [activePage, setActivePage] = useState(0)
   const [page, setPage] = useState<SalePage>({
     first: true,
     last: true,
@@ -15,11 +17,15 @@ const DataTable = () => {
   })
 
   useEffect(() => {
-    axios.get(`${BASE_URL}/saler?page=0&size=20&sort=date,desc`)
+    axios.get(`${BASE_URL}/saler?page=${activePage}&size=20&sort=date,desc`)
       .then(resp => setPage(resp.data))
-  }, []);
+  }, [activePage]);
+
+  const changePage = (indice: number) => setActivePage(indice)
 
   return(
+    <>
+    <Paginacao page={page} onPageChange={changePage}/>
     <div className="table-responsive">
       <table className="table table-striped table-sm">
         <thead>
@@ -44,6 +50,7 @@ const DataTable = () => {
         </tbody>
       </table>
     </div>
+    </>
   )
 }
 
