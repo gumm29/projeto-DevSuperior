@@ -1,19 +1,15 @@
 import DashBoard from 'pages/DashBoard'
 import Home from 'pages/Home'
-import { BrowserRouter, Switch, Route } from 'react-router-dom'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
 
 const Rota = () =>{
   return(
     <BrowserRouter>
-      <Switch>
-        <Route path="/" exact>
-          <Home />
-        </Route>
-        <Route path="/dashboard">
-          <DashBoard />
-        </Route>
-      </Switch>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/dashboard" element={<DashBoard />} />
+      </Routes>
     </BrowserRouter>
   )
 }
